@@ -16,6 +16,7 @@ import com.bitwig.extension.controller.UsbDeviceMatcher;
 import com.bitwig.extension.controller.UsbEndpointMatcher;
 import com.bitwig.extension.controller.UsbInterfaceMatcher;
 import com.bitwig.extension.controller.api.ControllerHost;
+import com.bitwig.extension.controller.api.UsbTransferType;
 
 import de.mossgrabers.framework.controller.IControllerDefinition;
 import de.mossgrabers.framework.controller.IControllerSetup;
@@ -145,8 +146,7 @@ public abstract class AbstractControllerExtensionDefinition extends ControllerEx
             final UsbEndpointMatcher [] endpointMatchers = new UsbEndpointMatcher [addresses.length];
             for (int i = 0; i < addresses.length; i++)
             {
-                final String endpointAddressExpression = "bEndpointAddress == 0x" + StringUtils.toHexStr (Byte.toUnsignedInt (addresses[i]));
-                endpointMatchers[i] = new UsbEndpointMatcher (endpointAddressExpression);
+                endpointMatchers[i] = new UsbEndpointMatcher (UsbTransferType.BULK, addresses[i]);
             }
             final String interfaceExpression = "bInterfaceNumber == 0x" + StringUtils.toHexStr (Byte.toUnsignedInt (endpoint.getInterfaceNumber ()));
             interfaceMatchers.add (new UsbInterfaceMatcher (interfaceExpression, endpointMatchers));

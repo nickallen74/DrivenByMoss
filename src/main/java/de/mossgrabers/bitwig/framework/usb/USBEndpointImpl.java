@@ -4,12 +4,12 @@
 
 package de.mossgrabers.bitwig.framework.usb;
 
-import de.mossgrabers.framework.usb.IUSBAsyncCallback;
-import de.mossgrabers.framework.usb.IUSBEndpoint;
+import java.nio.ByteBuffer;
 
 import com.bitwig.extension.controller.api.UsbPipe;
 
-import java.nio.ByteBuffer;
+import de.mossgrabers.framework.usb.IUSBAsyncCallback;
+import de.mossgrabers.framework.usb.IUSBEndpoint;
 
 
 /**
@@ -37,7 +37,7 @@ public class USBEndpointImpl implements IUSBEndpoint
     @Override
     public void send (final ByteBuffer buffer, final int timeout)
     {
-        this.endpoint.bulkTransfer (buffer, timeout);
+        this.endpoint.transfer (buffer, timeout);
     }
 
 
@@ -45,6 +45,6 @@ public class USBEndpointImpl implements IUSBEndpoint
     @Override
     public void sendAsync (final ByteBuffer buffer, final IUSBAsyncCallback callback, final int timeout)
     {
-        this.endpoint.asyncBulkTransfer (buffer, callback::process, timeout);
+        this.endpoint.asyncTransfer (buffer, callback::process, timeout);
     }
 }
