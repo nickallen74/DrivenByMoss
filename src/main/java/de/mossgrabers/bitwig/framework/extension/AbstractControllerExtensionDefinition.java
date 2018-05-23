@@ -12,6 +12,7 @@ import com.bitwig.extension.api.PlatformType;
 import com.bitwig.extension.controller.AutoDetectionMidiPortNamesList;
 import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.ControllerExtensionDefinition;
+import com.bitwig.extension.controller.HardwareDeviceMatcher;
 import com.bitwig.extension.controller.UsbDeviceMatcher;
 import com.bitwig.extension.controller.UsbEndpointMatcher;
 import com.bitwig.extension.controller.UsbInterfaceMatcher;
@@ -133,7 +134,7 @@ public abstract class AbstractControllerExtensionDefinition extends ControllerEx
 
     /** {@inheritDoc} */
     @Override
-    public void listUsbDevices (final List<UsbDeviceMatcher> matchers)
+    public void listHardwareDevices (final List<HardwareDeviceMatcher> matchers)
     {
         final USBMatcher matcher = this.definition.claimUSBDevice ();
         if (matcher == null)

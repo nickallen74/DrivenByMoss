@@ -4,6 +4,16 @@
 
 package de.mossgrabers.bitwig.framework.daw;
 
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bitwig.extension.api.graphics.BitmapFormat;
+import com.bitwig.extension.api.opensoundcontrol.OscAddressSpace;
+import com.bitwig.extension.api.opensoundcontrol.OscModule;
+import com.bitwig.extension.controller.api.ControllerHost;
+import com.bitwig.extension.controller.api.UsbDevice;
+
 import de.mossgrabers.bitwig.framework.graphics.BitmapImpl;
 import de.mossgrabers.bitwig.framework.graphics.ImageImpl;
 import de.mossgrabers.bitwig.framework.osc.OpenSoundControlMessageImpl;
@@ -16,15 +26,6 @@ import de.mossgrabers.framework.osc.IOpenSoundControlCallback;
 import de.mossgrabers.framework.osc.IOpenSoundControlMessage;
 import de.mossgrabers.framework.osc.IOpenSoundControlServer;
 import de.mossgrabers.framework.usb.IUSBDevice;
-
-import com.bitwig.extension.api.graphics.BitmapFormat;
-import com.bitwig.extension.api.opensoundcontrol.OscAddressSpace;
-import com.bitwig.extension.api.opensoundcontrol.OscModule;
-import com.bitwig.extension.controller.api.ControllerHost;
-
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -196,7 +197,7 @@ public class HostImpl implements IHost
     @Override
     public IUSBDevice getUsbDevice (final int index)
     {
-        final USBDeviceImpl usbDevice = new USBDeviceImpl (this.host.getUsbDevice (index));
+        final USBDeviceImpl usbDevice = new USBDeviceImpl ((UsbDevice)this.host.hardwareDevice (index));
         this.usbDevices.add (usbDevice);
         return usbDevice;
     }
