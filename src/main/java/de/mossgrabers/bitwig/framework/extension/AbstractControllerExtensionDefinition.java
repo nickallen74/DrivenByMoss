@@ -12,7 +12,7 @@ import com.bitwig.extension.api.PlatformType;
 import com.bitwig.extension.controller.AutoDetectionMidiPortNamesList;
 import com.bitwig.extension.controller.ControllerExtension;
 import com.bitwig.extension.controller.ControllerExtensionDefinition;
-import com.bitwig.extension.controller.HardwareDeviceMatcher;
+import com.bitwig.extension.controller.HardwareDeviceMatcherList;
 import com.bitwig.extension.controller.UsbDeviceMatcher;
 import com.bitwig.extension.controller.UsbEndpointMatcher;
 import com.bitwig.extension.controller.UsbInterfaceMatcher;
@@ -134,7 +134,7 @@ public abstract class AbstractControllerExtensionDefinition extends ControllerEx
 
     /** {@inheritDoc} */
     @Override
-    public void listHardwareDevices (final List<HardwareDeviceMatcher> matchers)
+    public void listHardwareDevices (final HardwareDeviceMatcherList list)
     {
         final USBMatcher matcher = this.definition.claimUSBDevice ();
         if (matcher == null)
@@ -154,7 +154,7 @@ public abstract class AbstractControllerExtensionDefinition extends ControllerEx
         }
 
         final String expression = "idVendor == 0x" + StringUtils.toHexStr (matcher.getVendor ()) + " && idProduct == 0x" + StringUtils.toHexStr (matcher.getProductID ());
-        matchers.add (new UsbDeviceMatcher (this.getHardwareVendor () + " " + this.getHardwareModel (), expression, interfaceMatchers.toArray (new UsbInterfaceMatcher [interfaceMatchers.size ()])));
+        list.add (new UsbDeviceMatcher (this.getHardwareVendor () + " " + this.getHardwareModel (), expression, interfaceMatchers.toArray (new UsbInterfaceMatcher [interfaceMatchers.size ()])));
     }
 
 
