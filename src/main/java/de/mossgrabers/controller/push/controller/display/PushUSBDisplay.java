@@ -4,12 +4,12 @@
 
 package de.mossgrabers.controller.push.controller.display;
 
+import java.nio.ByteBuffer;
+
 import de.mossgrabers.framework.daw.IHost;
 import de.mossgrabers.framework.graphics.IBitmap;
 import de.mossgrabers.framework.usb.IUSBDevice;
 import de.mossgrabers.framework.usb.IUSBEndpoint;
-
-import java.nio.ByteBuffer;
 
 
 /**
@@ -59,17 +59,8 @@ public class PushUSBDisplay
      */
     public PushUSBDisplay (final IHost host)
     {
-        try
-        {
-            this.usbDevice = host.getUsbDevice (0);
-            this.usbEndpoint = this.usbDevice.getEndpoint (0, 0);
-        }
-        catch (final RuntimeException ex)
-        {
-            this.usbDevice = null;
-            this.usbEndpoint = null;
-            host.error ("Could not open USB output.");
-        }
+        this.usbDevice = host.getUsbDevice (0);
+        this.usbEndpoint = this.usbDevice.getEndpoint (0, 0);
 
         this.headerBuffer = host.createByteBuffer (DISPLAY_HEADER.length);
         this.headerBuffer.put (DISPLAY_HEADER);

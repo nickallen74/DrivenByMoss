@@ -4,14 +4,14 @@
 
 package de.mossgrabers.controller.kontrol.usb.mki.controller;
 
-import de.mossgrabers.framework.daw.IHost;
-import de.mossgrabers.framework.usb.IUSBDevice;
-import de.mossgrabers.framework.usb.IUSBEndpoint;
-
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.mossgrabers.framework.daw.IHost;
+import de.mossgrabers.framework.usb.IUSBDevice;
+import de.mossgrabers.framework.usb.IUSBEndpoint;
 
 
 /**
@@ -461,19 +461,9 @@ public class Kontrol1USBDevice
     {
         this.host = host;
 
-        try
-        {
-            this.usbDevice = host.getUsbDevice (0);
-            this.usbEndpointDisplay = this.usbDevice.getEndpoint (0, 0);
-            this.usbEndpointUI = this.usbDevice.getEndpoint (0, 1);
-        }
-        catch (final RuntimeException ex)
-        {
-            this.usbDevice = null;
-            this.usbEndpointDisplay = null;
-            this.usbEndpointUI = null;
-            host.error ("Could not open USB connection: " + ex.getMessage ());
-        }
+        this.usbDevice = host.getUsbDevice (0);
+        this.usbEndpointDisplay = this.usbDevice.getEndpoint (0, 0);
+        this.usbEndpointUI = this.usbDevice.getEndpoint (0, 1);
 
         this.displayBuffer = host.createByteBuffer (DATA_SZ);
         this.uiBuffer = host.createByteBuffer (1024);
